@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://c2711t5rf6xtf"]
+
+[ext_resource type="Script" path="res://Scripts/multiplayer_player.gd" id="1_86cmv"]
+[ext_resource type="PackedScene" uid="uid://1obxi32hklkv" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache_multiplayer.tscn" id="2_ilh7k"]
+[ext_resource type="PackedScene" uid="uid://btf05hjpw6k05" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_physics_hand_low.tscn" id="3_bfdr3"]
+[ext_resource type="PackedScene" uid="uid://dbioidf7ee0ao" path="res://addons/godot-xr-tools/functions/function_pickup_multiplayer.tscn" id="5_5f4ja"]
+[ext_resource type="PackedScene" uid="uid://bcb1gj23emln3" path="res://addons/godot-xr-tools/functions/function_pointer_multiplayer.tscn" id="6_c0u3t"]
+[ext_resource type="PackedScene" uid="uid://7v7o1d8uddpn" path="res://addons/godot-xr-tools/functions/movement_turn_multiplayer.tscn" id="6_obhw8"]
+[ext_resource type="PackedScene" uid="uid://bdwmserhqai5h" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_physics_hand_low.tscn" id="7_og4m0"]
+[ext_resource type="PackedScene" uid="uid://bvvfkink67nwt" path="res://addons/godot-xr-tools/functions/movement_direct_multiplayer.tscn" id="8_h87yk"]
+[ext_resource type="PackedScene" uid="uid://btgv2elg8dw7c" path="res://addons/godot-xr-tools/player/player_body_multiplayer.tscn" id="9_a4mvq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_in15v"]
+size = Vector3(0.25, 0.25, 0.2)
+
+[sub_resource type="GDScript" id="GDScript_tw7lq"]
+script/source = "extends XRController3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Multiplayer" type="XROrigin3D"]
+script = ExtResource("1_86cmv")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2049, 0)
+
+[node name="VRCommonShaderCacheMult" parent="XRCamera3D" instance=ExtResource("2_ilh7k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2049, 0)
+
+[node name="Head" type="MeshInstance3D" parent="XRCamera3D"]
+mesh = SubResource("BoxMesh_in15v")
+
+[node name="Player_name" type="Label3D" parent="XRCamera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8951, 0)
+text = "Id"
+
+[node name="XRController3D_right" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.410686, 0.623434, 0)
+tracker = &"right_hand"
+pose = &"aim"
+script = SubResource("GDScript_tw7lq")
+
+[node name="RightPhysicsHand" parent="XRController3D_right" instance=ExtResource("3_bfdr3")]
+
+[node name="MovementTurnMult" parent="XRController3D_right" instance=ExtResource("6_obhw8")]
+
+[node name="FunctionPickupMult" parent="XRController3D_right" instance=ExtResource("5_5f4ja")]
+
+[node name="FunctionPointerMult" parent="XRController3D_right" instance=ExtResource("6_c0u3t")]
+show_laser = 2
+laser_length = 1
+show_target = true
+
+[node name="XRController3D_left" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.755954, 0.665348, 0)
+tracker = &"left_hand"
+pose = &"aim"
+
+[node name="LeftPhysicsHand" parent="XRController3D_left" instance=ExtResource("7_og4m0")]
+
+[node name="MovementDirectMult" parent="XRController3D_left" instance=ExtResource("8_h87yk")]
+strafe = true
+
+[node name="FunctionPickupMult" parent="XRController3D_left" instance=ExtResource("5_5f4ja")]
+
+[node name="FunctionPointerMult" parent="XRController3D_left" instance=ExtResource("6_c0u3t")]
+show_laser = 2
+laser_length = 1
+show_target = true
+
+[node name="PlayerBodyMult" parent="." instance=ExtResource("9_a4mvq")]

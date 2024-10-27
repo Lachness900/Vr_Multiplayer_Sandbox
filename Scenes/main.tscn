@@ -1,0 +1,1135 @@
+[gd_scene load_steps=37 format=3 uid="uid://bi1eaqbkaryvk"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_lt3al"]
+[ext_resource type="ArrayMesh" uid="uid://bc5teg0o5j5e5" path="res://Assets/Materials/table.obj" id="2_ypwci"]
+[ext_resource type="Texture2D" uid="uid://ck2vrsbhpuci3" path="res://Assets/Materials/table_col.png" id="3_rjlu0"]
+[ext_resource type="ArrayMesh" uid="uid://bsyao0bk00v4p" path="res://Assets/Materials/10586_Chess Board_v2_Iterations-2.obj" id="3_wk8km"]
+[ext_resource type="Texture2D" uid="uid://86eooyatv4k7" path="res://Assets/Materials/10586_Chess Board_v1_diffuse.JPG" id="4_3igbc"]
+[ext_resource type="Texture2D" uid="uid://bap8rdlu2iqhi" path="res://Assets/Materials/table_rou.png" id="4_q4yvr"]
+[ext_resource type="PackedScene" uid="uid://ce7vysyvondf8" path="res://addons/godot-xr-tools/objects/snap_zone.tscn" id="5_4vhow"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.gd" id="6_wx5u8"]
+[ext_resource type="PackedScene" uid="uid://d22jbmb4di4wa" path="res://Assets/Chess Scenes/BPawn_pickable.tscn" id="7_c6amn"]
+[ext_resource type="PackedScene" uid="uid://dxfjka42btlhl" path="res://Assets/Chess Scenes/BBishop_pickable.tscn" id="8_p7ibf"]
+[ext_resource type="PackedScene" uid="uid://ss4qwhnr2wp2" path="res://Assets/Chess Scenes/BRook_pickable.tscn" id="9_tnerw"]
+[ext_resource type="PackedScene" uid="uid://buyrxwxt5h4ge" path="res://Assets/Chess Scenes/BKnight_pickable.tscn" id="10_jg1we"]
+[ext_resource type="PackedScene" uid="uid://3gtavg70ovgf" path="res://Assets/Chess Scenes/BKing_pickable.tscn" id="11_jjfjk"]
+[ext_resource type="PackedScene" uid="uid://c8qnwso006npr" path="res://Assets/Chess Scenes/BQueen_pickable.tscn" id="12_63avw"]
+[ext_resource type="PackedScene" uid="uid://n8teecjerp77" path="res://Assets/Chess Scenes/Pawn_pickable.tscn" id="13_eltti"]
+[ext_resource type="PackedScene" uid="uid://birxx8p6y6gvs" path="res://Assets/Chess Scenes/Rook_pickable.tscn" id="14_kg23a"]
+[ext_resource type="PackedScene" uid="uid://bdeenmhttbh6v" path="res://Assets/Chess Scenes/Knight_pickable.tscn" id="15_c0ovp"]
+[ext_resource type="PackedScene" uid="uid://bfjtusg4pfld0" path="res://Assets/Chess Scenes/Bishop_pickable.tscn" id="16_m14tn"]
+[ext_resource type="PackedScene" uid="uid://c13emtkkyjydh" path="res://Assets/Chess Scenes/Queen_pickable.tscn" id="17_xka5c"]
+[ext_resource type="PackedScene" uid="uid://df5bgmpps4w0s" path="res://Assets/Chess Scenes/King_pickable.tscn" id="18_nsfii"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="19_q6dxw"]
+[ext_resource type="PackedScene" uid="uid://knvdi0n5g12w" path="res://Scenes/GUI.tscn" id="20_qj4b6"]
+[ext_resource type="PackedScene" uid="uid://oljm4ypwplsk" path="res://Scenes/player.tscn" id="21_8culj"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_2pm6m"]
+
+[sub_resource type="Sky" id="Sky_pbhxw"]
+sky_material = SubResource("PhysicalSkyMaterial_2pm6m")
+
+[sub_resource type="Environment" id="Environment_snre1"]
+background_mode = 2
+sky = SubResource("Sky_pbhxw")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vbl6p"]
+friction = 0.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hy4dr"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iildy"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vppv1"]
+friction = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boug5"]
+albedo_texture = ExtResource("3_rjlu0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bri2x"]
+albedo_texture = ExtResource("4_q4yvr")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v1yfw"]
+size = Vector3(1.2, 0.82, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggh1l"]
+albedo_texture = ExtResource("4_3igbc")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vahq6"]
+size = Vector3(0.77, 0.04, 0.77)
+
+[sub_resource type="SphereMesh" id="SphereMesh_20urv"]
+radius = 0.001
+height = 0.002
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_lt3al")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_snre1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.358759, 0.93343, 0, -0.93343, 0.358759, 0, 2.4909, 0.706722)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_vbl6p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_hy4dr")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_iildy")
+
+[node name="Table2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38561, 0, -1.00409)
+collision_layer = 8
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_vppv1")
+
+[node name="Table2" type="MeshInstance3D" parent="Table2"]
+transform = Transform3D(1.7, 0, 0, 0, 2.3, 0, 0, 0, 1.7, 0, 0, -0.125195)
+mesh = ExtResource("2_ypwci")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_boug5")
+surface_material_override/1 = SubResource("StandardMaterial3D_bri2x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.405, 0)
+shape = SubResource("BoxShape3D_v1yfw")
+
+[node name="Chess Board" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.344, 0.817257, -1.1164)
+collision_layer = 8
+collision_mask = 3
+
+[node name="10586ChessBoardV2Iterations-2" type="MeshInstance3D" parent="Chess Board"]
+transform = Transform3D(0.02, 0, 0, 0, -8.74228e-10, 0.02, 0, -0.02, -8.74228e-10, 0, 0, 0)
+mesh = ExtResource("3_wk8km")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ggh1l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chess Board"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+shape = SubResource("BoxShape3D_vahq6")
+
+[node name="Snap_Zones" type="Node3D" parent="Chess Board"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045, 0)
+
+[node name="H8" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315, 0.086, -0.31)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BRook2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/H8"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="H7" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315, 0.086, -0.222147)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BPawn8")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/H7"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="H6" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315, 0.086, -0.13254)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/H6"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="H5" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315, 0.086, -0.0422632)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/H5"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="H4" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315, 0.086, 0.0485463)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/H4"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="H3" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315, 0.086, 0.1358)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/H3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="H2" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315, 0.086, 0.225194)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Pawn8")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/H2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="H1" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.315, 0.086, 0.308624)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Rook2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/H1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="G8" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218796, 0.086, -0.31)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BKnight2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/G8"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="G7" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218796, 0.086, -0.222147)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BPawn7")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/G7"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="G6" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218796, 0.086, -0.13254)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/G6"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="G5" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218796, 0.086, -0.0422632)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/G5"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="G4" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218796, 0.086, 0.0485463)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/G4"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="G3" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218796, 0.086, 0.1358)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/G3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="G2" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218796, 0.086, 0.225194)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Pawn7")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/G2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="G1" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.218796, 0.086, 0.308624)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Knight2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/G1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="F8" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130906, 0.086, -0.31)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BBishop2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/F8"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="F7" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130906, 0.086, -0.222147)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BPawn6")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/F7"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="F6" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130906, 0.086, -0.13254)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/F6"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="F5" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130906, 0.086, -0.0422632)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/F5"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="F4" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130906, 0.086, 0.0485463)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/F4"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="F3" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130906, 0.086, 0.1358)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/F3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="F2" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130906, 0.086, 0.225194)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Pawn6")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/F2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="F1" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130906, 0.086, 0.308624)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Bishop2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/F1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="E8" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0458877, 0.086, -0.31)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BKing")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/E8"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="E7" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0458877, 0.086, -0.222147)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BPawn5")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/E7"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="E6" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0458877, 0.086, -0.13254)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/E6"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="E5" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0458877, 0.086, -0.0422632)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/E5"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="E4" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0458877, 0.086, 0.0485463)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/E4"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="E3" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0458877, 0.086, 0.1358)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/E3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="E2" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0458877, 0.086, 0.225194)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Pawn5")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/E2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="E1" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0458877, 0.086, 0.308624)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Queen")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/E1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="D8" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0475864, 0.086, -0.31)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BQueen")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/D8"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="D7" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0475864, 0.086, -0.222147)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BPawn4")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/D7"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="D6" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0475864, 0.086, -0.13254)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/D6"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="D5" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0475864, 0.086, -0.0422632)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/D5"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="D4" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0475864, 0.086, 0.0485463)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/D4"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="D3" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0475864, 0.086, 0.1358)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/D3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="D2" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0475864, 0.086, 0.225194)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Pawn4")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/D2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="D1" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0475864, 0.086, 0.308624)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/King")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/D1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="C8" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135714, 0.086, -0.31)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BBishop")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/C8"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="C7" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135714, 0.086, -0.222147)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BPawn3")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/C7"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="C6" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135714, 0.086, -0.13254)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/C6"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="C5" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135714, 0.086, -0.0422632)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/C5"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="C4" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135714, 0.086, 0.0485463)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/C4"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="C3" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135714, 0.086, 0.1358)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/C3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="C2" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135714, 0.086, 0.225194)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Pawn3")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/C2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="C1" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135714, 0.086, 0.308624)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Bishop")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/C1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="B8" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233844, 0.086, -0.31)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BKnight")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/B8"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="B7" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233844, 0.086, -0.222147)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BPawn2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/B7"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="B6" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233844, 0.086, -0.13254)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/B6"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="B5" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233844, 0.086, -0.0422632)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/B5"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="B4" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233844, 0.086, 0.0485463)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/B4"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="B3" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233844, 0.086, 0.1358)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/B3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="B2" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233844, 0.086, 0.225194)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Pawn2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/B2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="B1" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233844, 0.086, 0.308624)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Knight")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/B1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="A8" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316155, 0.086, -0.31)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BRook")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/A8"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="A7" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316155, 0.086, -0.222147)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BPawn")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/A7"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="A6" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316155, 0.086, -0.13254)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/A6"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="A5" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316155, 0.086, -0.0422632)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/A5"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="A4" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316155, 0.086, 0.0485463)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/A4"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="A3" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316155, 0.086, 0.1358)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/A3"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="A2" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316155, 0.086, 0.225194)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Pawn")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/A2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="A1" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316155, 0.086, 0.308624)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Rook")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/A1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="Boardside1" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.475, 0.05, 0.167)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/Queen2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/Boardside1"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="Boardside2" parent="Chess Board/Snap_Zones" instance=ExtResource("5_4vhow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.475, 0.05, -0.182134)
+drop_on_disabled = true
+grab_distance = 0.05
+snap_mode = 1
+initial_object = NodePath("../../../Chess Pieces/BQueen2")
+
+[node name="XRToolsHighlightRing" type="MeshInstance3D" parent="Chess Board/Snap_Zones/Boardside2"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("SphereMesh_20urv")
+script = ExtResource("6_wx5u8")
+
+[node name="Chess Pieces" type="Node3D" parent="."]
+
+[node name="BPawn" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("7_c6amn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65, 0.93, -1.36907)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/A7")
+
+[node name="BPawn2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("7_c6amn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.57985, 0.93, -1.36907)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/B7")
+
+[node name="BPawn3" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("7_c6amn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.48158, 0.93, -1.36907)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/C7")
+
+[node name="BPawn4" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("7_c6amn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.39043, 0.93, -1.36907)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/D7")
+
+[node name="BPawn5" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("7_c6amn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.30649, 0.93, -1.36907)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/E7")
+
+[node name="BPawn6" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("7_c6amn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.21251, 0.93, -1.36907)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/F7")
+
+[node name="BPawn7" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("7_c6amn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12169, 0.93, -1.36907)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/G7")
+
+[node name="BPawn8" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("7_c6amn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.03103, 0.93, -1.36907)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/H7")
+
+[node name="BBishop" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("8_p7ibf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4859, 0.93, -1.45172)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/C8")
+ranged_grab_speed = 4.0
+
+[node name="BRook" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("9_tnerw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.67149, 0.93, -1.4516)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/A8")
+
+[node name="BRook2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("9_tnerw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.03131, 0.93, -1.4516)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/H8")
+
+[node name="BBishop2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("8_p7ibf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.20838, 0.93, -1.45172)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/F8")
+ranged_grab_speed = 4.0
+
+[node name="BKnight" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") groups=["Pickable"] instance=ExtResource("10_jg1we")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.57127, 0.93, -1.44768)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/B8")
+
+[node name="BKnight2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") groups=["Pickable"] instance=ExtResource("10_jg1we")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.12667, 0.93, -1.46632)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/G8")
+
+[node name="BKing" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("11_jjfjk")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.29715, 0.93, -1.45574)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/E8")
+
+[node name="BQueen" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("12_63avw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38916, 0.93, -1.46705)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/D8")
+
+[node name="Pawn" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("13_eltti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65956, 0.93, -0.927583)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/A2")
+
+[node name="Pawn2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("13_eltti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.56782, 0.93, -0.927583)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/B2")
+
+[node name="Pawn3" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("13_eltti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.47349, 0.93, -0.927583)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/C2")
+
+[node name="Pawn4" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("13_eltti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38957, 0.93, -0.927583)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/D2")
+
+[node name="Pawn5" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("13_eltti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.302, 0.93, -0.927583)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/E2")
+
+[node name="Pawn6" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("13_eltti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.21468, 0.93, -0.927583)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/F2")
+
+[node name="Pawn7" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("13_eltti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12318, 0.93, -0.927583)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/G2")
+
+[node name="Pawn8" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("13_eltti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.03432, 0.93, -0.927583)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/H2")
+
+[node name="Rook" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("14_kg23a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65888, 0.93, -0.824853)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/A1")
+
+[node name="Rook2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("14_kg23a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.03706, 0.93, -0.824853)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/H1")
+
+[node name="Knight" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("15_c0ovp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.56801, 0.93, -0.830789)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/B1")
+
+[node name="Knight2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("15_c0ovp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12743, 0.93, -0.830789)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/G1")
+
+[node name="Bishop" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("16_m14tn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.48361, 0.93, -0.830515)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/C1")
+
+[node name="Bishop2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("16_m14tn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2107, 0.93, -0.830515)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/F1")
+
+[node name="Queen" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("17_xka5c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.30204, 0.93, -0.828103)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/E1")
+
+[node name="King" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("18_nsfii")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.38218, 0.93, -0.828103)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/D1")
+
+[node name="Queen2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("17_xka5c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.83957, 0.88, -1.02445)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/Boardside1")
+
+[node name="BQueen2" parent="Chess Pieces" node_paths=PackedStringArray("original_chess_node") instance=ExtResource("12_63avw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.82053, 0.88, -1.19247)
+collision_mask = 15
+original_chess_node = NodePath("../../Chess Board/Snap_Zones/Boardside2")
+
+[node name="GUI" parent="." instance=ExtResource("19_q6dxw")]
+transform = Transform3D(-4.37114e-10, 0, 0.01, 0, 0.01, 0, -0.01, 0, -4.37114e-10, -8.67629, 2, -1.76553)
+screen_size = Vector2(640, 360)
+scene = ExtResource("20_qj4b6")
+unshaded = true
+scene_properties_keys = PackedStringArray("GUI.gd")
+
+[node name="Player" parent="." instance=ExtResource("21_8culj")]
+current = true
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/other_players.tscn")
+spawn_path = NodePath("../Players")
+
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/H8" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/H7" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/H6" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/H5" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/H4" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/H3" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/H2" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/H1" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/G8" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/G7" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/G6" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/G5" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/G4" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/G3" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/G2" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/G1" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/F8" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/F7" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/F6" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/F5" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/F4" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/F3" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/F2" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/F1" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/E8" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/E7" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/E6" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/E5" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/E4" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/E3" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/E2" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/E1" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/D8" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/D7" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/D6" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/D5" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/D4" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/D3" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/D2" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/D1" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/C8" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/C7" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/C6" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/C5" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/C4" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/C3" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/C2" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/C1" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/B8" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/B7" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/B6" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/B5" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/B4" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/B3" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/B2" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/B1" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/A8" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/A7" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/A6" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/A5" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/A4" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/A3" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/A2" to="." method="_on_snap_zone_has_dropped"]
+[connection signal="has_dropped" from="Chess Board/Snap_Zones/A1" to="." method="_on_snap_zone_has_dropped"]

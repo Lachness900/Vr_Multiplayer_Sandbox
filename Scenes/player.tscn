@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://oljm4ypwplsk"]
+
+[ext_resource type="PackedScene" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="1_1repf"]
+[ext_resource type="PackedScene" uid="uid://btf05hjpw6k05" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_physics_hand_low.tscn" id="2_27bxb"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="3_gym1e"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/functions/function_pickup.gd" id="4_kiq8f"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="5_jbgep"]
+[ext_resource type="PackedScene" uid="uid://bdwmserhqai5h" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_physics_hand_low.tscn" id="6_j1kd1"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="7_4mlpa"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/player/player_body.gd" id="8_ow5aw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rvdc0"]
+radius = 0.2
+height = 1.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t0l6u"]
+radius = 0.2
+
+[node name="Player" type="XROrigin3D"]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2049, 0)
+
+[node name="VRCommonShaderCache" parent="XRCamera3D" instance=ExtResource("1_1repf")]
+
+[node name="XRController3D_right" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.410686, 0.623434, 0)
+tracker = &"right_hand"
+pose = &"aim"
+
+[node name="RightPhysicsHand" parent="XRController3D_right" instance=ExtResource("2_27bxb")]
+
+[node name="MovementTurn" parent="XRController3D_right" instance=ExtResource("3_gym1e")]
+
+[node name="XRToolsFunctionPickup" type="Node3D" parent="XRController3D_right"]
+script = ExtResource("4_kiq8f")
+
+[node name="FunctionPointer" parent="XRController3D_right" instance=ExtResource("5_jbgep")]
+show_laser = 2
+laser_length = 1
+show_target = true
+
+[node name="XRController3D_left" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.755954, 0.665348, 0)
+tracker = &"left_hand"
+pose = &"aim"
+
+[node name="LeftPhysicsHand" parent="XRController3D_left" instance=ExtResource("6_j1kd1")]
+
+[node name="MovementDirect" parent="XRController3D_left" instance=ExtResource("7_4mlpa")]
+strafe = true
+
+[node name="XRToolsFunctionPickup" type="Node3D" parent="XRController3D_left"]
+script = ExtResource("4_kiq8f")
+
+[node name="FunctionPointer" parent="XRController3D_left" instance=ExtResource("5_jbgep")]
+show_laser = 2
+laser_length = 1
+show_target = true
+
+[node name="XRToolsPlayerBody" type="CharacterBody3D" parent="."]
+top_level = true
+collision_layer = 524288
+collision_mask = 3
+script = ExtResource("8_ow5aw")
+
+[node name="_CollisionShape3D_168279" type="CollisionShape3D" parent="XRToolsPlayerBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_rvdc0")
+
+[node name="_ShapeCast3D_168280" type="ShapeCast3D" parent="XRToolsPlayerBody"]
+enabled = false
+shape = SubResource("SphereShape3D_t0l6u")
+margin = 0.01
+max_results = 1
+collision_mask = 3

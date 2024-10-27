@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ct4ow55kuvm23"
+path="res://.godot/imported/Chess Bishop.obj-864034740a32be9e2c86f3ff32cf929e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Chess Bishop.obj-864034740a32be9e2c86f3ff32cf929e.mesh"]
+
+source_file="res://Assets/Materials/chess_pieces/Chess Bishop.obj"
+dest_files=["res://.godot/imported/Chess Bishop.obj-864034740a32be9e2c86f3ff32cf929e.mesh", "res://.godot/imported/Chess Bishop.obj-864034740a32be9e2c86f3ff32cf929e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

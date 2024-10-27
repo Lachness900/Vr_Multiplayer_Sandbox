@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvvfkink67nwt"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/functions/movement_direct_multiplayer.gd" id="1_s2p51"]
+
+[node name="MovementDirectMult" type="Node" groups=["multi_movement_providers"]]
+script = ExtResource("1_s2p51")

@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbsd03gebx23j"]
+
+[ext_resource type="ArrayMesh" uid="uid://b82sti67khlpg" path="res://Assets/Materials/chess_pieces/Chess Pawn.obj" id="1_um0rg"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bd3wo"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pqhqn"]
+height = 0.04
+radius = 0.015
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4n5v0"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ujhqp"]
+radius = 0.01
+height = 0.08
+
+[node name="BPawn" type="Node3D"]
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_bd3wo")
+lock_rotation = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+shape = SubResource("CylinderShape3D_pqhqn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, -0.002, 0)
+mesh = ExtResource("1_um0rg")
+surface_material_override/0 = SubResource("StandardMaterial3D_4n5v0")
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+shape = SubResource("CapsuleShape3D_ujhqp")

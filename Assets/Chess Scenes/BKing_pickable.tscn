@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://3gtavg70ovgf"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_knc54"]
+[ext_resource type="ArrayMesh" uid="uid://dv7h4wq01yh7" path="res://Assets/Materials/chess_pieces (2)/Chess King.obj" id="2_xtq3y"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="3_wjjvn"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand.gd" id="4_bk2ii"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7x230"]
+height = 0.08
+radius = 0.015
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fxqm"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2xh2"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+grow = true
+grow_amount = 0.05
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wcma1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="BKing" groups=["Pickable"] instance=ExtResource("1_knc54")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+shape = SubResource("CylinderShape3D_7x230")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = ExtResource("2_xtq3y")
+surface_material_override/0 = SubResource("StandardMaterial3D_7fxqm")
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="." index="2"]
+script = ExtResource("3_wjjvn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = ExtResource("2_xtq3y")
+surface_material_override/0 = SubResource("StandardMaterial3D_n2xh2")
+
+[node name="XRToolsGrabPointHand" type="Marker3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00189587, 0.0366943, -0.0950937)
+visible = false
+script = ExtResource("4_bk2ii")
+
+[node name="XRToolsGrabPointHand2" type="Marker3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0.041, -0.088)
+visible = false
+script = ExtResource("4_bk2ii")
+hand = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="5"]
+replication_config = SubResource("SceneReplicationConfig_wcma1")

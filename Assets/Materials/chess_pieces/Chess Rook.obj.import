@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c3isnlm8isdee"
+path="res://.godot/imported/Chess Rook.obj-1831f13a9e83e02ffe6abea64d74915f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Chess Rook.obj-1831f13a9e83e02ffe6abea64d74915f.mesh"]
+
+source_file="res://Assets/Materials/chess_pieces/Chess Rook.obj"
+dest_files=["res://.godot/imported/Chess Rook.obj-1831f13a9e83e02ffe6abea64d74915f.mesh", "res://.godot/imported/Chess Rook.obj-1831f13a9e83e02ffe6abea64d74915f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

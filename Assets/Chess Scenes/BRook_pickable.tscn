@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://ss4qwhnr2wp2"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_cp15s"]
+[ext_resource type="ArrayMesh" uid="uid://c3isnlm8isdee" path="res://Assets/Materials/chess_pieces (2)/Chess Rook.obj" id="2_nwd8j"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="3_4nr4n"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand.gd" id="4_hekpp"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_empga"]
+height = 0.05
+radius = 0.015
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxaqj"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qeu3x"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+grow = true
+grow_amount = 0.05
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ixp1m"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="BRook" groups=["Pickable"] instance=ExtResource("1_cp15s")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+shape = SubResource("CylinderShape3D_empga")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0.21, 0, -0.21)
+mesh = ExtResource("2_nwd8j")
+surface_material_override/0 = SubResource("StandardMaterial3D_uxaqj")
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="." index="2"]
+script = ExtResource("3_4nr4n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsHighlightVisible" index="0"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0.21, 0, -0.21)
+mesh = ExtResource("2_nwd8j")
+surface_material_override/0 = SubResource("StandardMaterial3D_qeu3x")
+
+[node name="XRToolsGrabPointHand" type="Marker3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00189587, 0.0366943, -0.0950937)
+visible = false
+script = ExtResource("4_hekpp")
+
+[node name="XRToolsGrabPointHand2" type="Marker3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0.041, -0.088)
+visible = false
+script = ExtResource("4_hekpp")
+hand = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="5"]
+replication_config = SubResource("SceneReplicationConfig_ixp1m")

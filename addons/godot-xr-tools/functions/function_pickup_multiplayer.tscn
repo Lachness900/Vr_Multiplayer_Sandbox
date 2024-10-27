@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbioidf7ee0ao"]
+
+[ext_resource type="Script" path="res://addons/godot-xr-tools/functions/function_pickup_multiplayer.gd" id="1_gsyd0"]
+
+[node name="FunctionPickupMult" type="Node3D"]
+script = ExtResource("1_gsyd0")
+grab_collision_mask = 327684

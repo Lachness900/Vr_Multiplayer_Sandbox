@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkygti2j463cl"]
+
+[ext_resource type="ArrayMesh" uid="uid://dv7h4wq01yh7" path="res://Assets/Materials/chess_pieces/Chess King.obj" id="1_w422a"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bd3wo"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1nhet"]
+height = 0.08
+radius = 0.015
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kqogj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8048k"]
+radius = 0.01
+height = 0.1
+
+[node name="King" type="Node3D"]
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_bd3wo")
+lock_rotation = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+shape = SubResource("CylinderShape3D_1nhet")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
+mesh = ExtResource("1_w422a")
+surface_material_override/0 = SubResource("StandardMaterial3D_kqogj")
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CapsuleShape3D_8048k")
